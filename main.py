@@ -23,6 +23,7 @@ class RegistrationRequest(BaseModel):
     contact_number: str = Field(..., min_length=7, max_length=20)
     team_name: str = Field(..., min_length=2)
     players: List[str] = Field(..., min_items=8, max_items=8)
+    fees: float = Field(..., ge=0)
 
     @validator("players")
     def validate_players(cls, v):
@@ -57,6 +58,7 @@ async def create_registration(payload: RegistrationRequest):
             contact_number=payload.contact_number,
             team_name=payload.team_name,
             players=payload.players,
+            fees=payload.fees,
         )
         inserted_id = create_document("registration", reg)
         return {"ok": True, "id": inserted_id}

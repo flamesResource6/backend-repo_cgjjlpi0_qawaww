@@ -48,3 +48,4 @@ class Registration(BaseModel):
     contact_number: str = Field(..., description="Contact number")
     team_name: str = Field(..., description="Team name")
     players: List[str] = Field(..., min_items=8, max_items=8, description="Exactly 8 player names")
+    fees: float = Field(..., ge=0, description="Registration fees (non-negative)")
